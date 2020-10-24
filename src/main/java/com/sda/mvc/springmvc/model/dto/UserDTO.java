@@ -1,11 +1,19 @@
 package com.sda.mvc.springmvc.model.dto;
 
 public class UserDTO {
+    private Long id;
     private String name;
     private String surname;
     private String login;
     private String password;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public String getName() {
         return name;
     }

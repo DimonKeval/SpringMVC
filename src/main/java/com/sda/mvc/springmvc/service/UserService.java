@@ -6,6 +6,9 @@ import com.sda.mvc.springmvc.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -18,6 +21,10 @@ public class UserService {
         this.repository = repository;
     }
 
+    public ModelMapper getModelMapper() {
+        return modelMapper;
+    }
+
     public void addUser(UserDTO userDTO) {
         User user = modelMapper.map(userDTO, User.class);
 
@@ -27,5 +34,10 @@ public class UserService {
 
         //zapisać do bazy
 
+    }
+
+    public List<User> getUsers() {
+        List<User> userList = repository.findAll();
+        return userList;
     }
 }
