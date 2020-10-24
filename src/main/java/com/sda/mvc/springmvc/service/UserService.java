@@ -6,8 +6,8 @@ import com.sda.mvc.springmvc.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -26,18 +26,26 @@ public class UserService {
     }
 
     public void addUser(UserDTO userDTO) {
+
+        //zmapować na encje
         User user = modelMapper.map(userDTO, User.class);
 
         System.out.println("I have an user: " + user.getName());
-        repository.save(user);
-        //zmapować na encje
 
         //zapisać do bazy
-
+        repository.save(user);
     }
 
-    public List<User> getUsers() {
-        List<User> userList = repository.findAll();
-        return userList;
+//first own version
+//    public List<User> getUsers() {
+//        List<User> userList = repository.findAll();
+//        return userList;
+//    }
+
+    public List<UserDTO> getAllUsers(){
+        return repository.findAll()
+                .stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
     }
 }

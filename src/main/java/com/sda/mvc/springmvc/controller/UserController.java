@@ -35,8 +35,11 @@ public class UserController {
 
     @GetMapping("/users")
     public ModelAndView getAllUsers() {
-        List<UserDTO> userDTOList = new ArrayList<>();
-        userService.getUsers().forEach(user -> userDTOList.add(userService.getModelMapper().map(user, UserDTO.class)));
+        List<UserDTO> userDTOList = userService.getAllUsers();
+// Logic cannot to be here in Controller
+//        userService.getUsers()
+//                .forEach(user -> userDTOList.add(userService.getModelMapper().map(user, UserDTO.class)));
+
         return new ModelAndView("users", "userList", userDTOList);
     }
 }
