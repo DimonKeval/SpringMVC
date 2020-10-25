@@ -48,4 +48,19 @@ public class UserService {
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
     }
+
+    public void deleteUser(Long id) {
+        repository.deleteById(id);
+    }
+
+    public UserDTO findUserById (Long id){
+        return modelMapper.map(repository.findById(id), UserDTO.class);
+    }
+
+    public List<UserDTO> findUsersBySurname(String surname) {
+        return repository.findUsersBySurname(surname)
+                .stream()
+                .map(user -> modelMapper.map(user, UserDTO.class))
+                .collect(Collectors.toList());
+    }
 }

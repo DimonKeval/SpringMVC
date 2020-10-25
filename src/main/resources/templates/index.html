@@ -8,12 +8,15 @@
 </head>
 <body>
 
-<h1>Witoj świecie!)</h1>
+<h1>Witoj świecie!) <input disabled th:value="${login}"/></h1>
 <form action="/users">
     <button class="btn btn-primary" type="submit">Pokaż uzytkowników</button>
 </form>
 <form action="/adduser">
     <button class="btn btn-warning" type="submit">Dodaj użytkownika</button>
+</form>
+<form action="/finduser">
+    <button class="btn btn-info" type="submit">Znajdź użytkownika po id</button>
 </form>
 </body>
 </html>

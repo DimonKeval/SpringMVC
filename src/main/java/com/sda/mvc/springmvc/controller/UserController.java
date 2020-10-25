@@ -1,5 +1,6 @@
 package com.sda.mvc.springmvc.controller;
 
+import com.sda.mvc.springmvc.model.entity.User;
 import com.sda.mvc.springmvc.service.UserService;
 import com.sda.mvc.springmvc.model.dto.UserDTO;
 import org.modelmapper.ModelMapper;
@@ -40,6 +41,37 @@ public class UserController {
 //        userService.getUsers()
 //                .forEach(user -> userDTOList.add(userService.getModelMapper().map(user, UserDTO.class)));
 
+        return new ModelAndView("users", "userList", userDTOList);
+    }
+
+    @PostMapping("/deleteuser")
+    public String deleteUser(@ModelAttribute UserDTO userDTO) {
+        System.out.println("Removing user with id: " + userDTO.getId());
+        userService.deleteUser(userDTO.getId());
+        return "redirect:/users";
+    }
+
+//-----FIRS TRY TO MAKE GOOD SEARCHING-----
+
+//    @GetMapping("/finduser")
+//    public ModelAndView findUserById() {
+//        return new ModelAndView("finduser", "userById", new UserDTO());
+//    }
+//
+//    @PostMapping("/finduser")
+//    public ModelAndView showUserById(@ModelAttribute UserDTO userDTO) {
+//        return new ModelAndView("finduser", "userById", userService.findUserById(userDTO.getId()));
+//    }
+//--------------
+
+    @GetMapping("/finduser")
+    public ModelAndView getFindUserView() {
+        return new ModelAndView("finduser", "userData", new UserDTO());
+    }
+
+    @GetMapping("/finduserbysurname")
+    public ModelAndView findUsersBySurname(@ModelAttribute UserDTO userDTO) {
+        List<UserDTO> userDTOList = userService.findUsersBySurname(userDTO.getSurname());
         return new ModelAndView("users", "userList", userDTOList);
     }
 }
